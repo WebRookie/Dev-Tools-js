@@ -19,3 +19,18 @@ export function isPhoneNumber(PhoneNumber) {
       return false;
     }
 }
+/**
+ *  图片base64转File
+ * @param {base64的文件类型} base64
+ * @returns File
+ */
+export function base64ToFileObj (base64) {
+  const value = base64.split(',')[1]
+  const data = atob(value);
+  let array = [];
+  for(let i=0; i< data.length; i++) {
+    array.push(data.charCodeAt(i));
+  }
+  const blob = new Blob([new Uint8Array(array), { type: "image/jpeg" }]);
+  return new File([blob], new Date() + '.jpg');
+}
