@@ -5,7 +5,7 @@
  * @returns Boolean
  */
 export function isPhoneNumber(PhoneNumber) {
-  if( (PhoneNumber??"") === "" ){
+  if(!PhoneNumber || PhoneNumber === "" ){
     return false;
   }
   // 字母
@@ -34,3 +34,27 @@ export function base64ToFileObj (base64) {
   const blob = new Blob([new Uint8Array(array), { type: "image/jpeg" }]);
   return new File([blob], new Date() + '.jpg');
 }
+
+
+/**
+ * web文件流下载
+ * @param { 二进制文件流 } res
+ * @param { 文件名,需要带文件类型 } fileName 
+ */
+export function exportFile = (res, fileName) => {
+  const blob = new Blog([res])
+//   非IE下载
+  if ('download' in document.createElement('a') ) {
+    const link = document.createElement('a')
+    link.download = fileName
+    link.style.display = 'none'
+    link.href = URL.createObjectURL(blob)
+    document.body.appendChild(link)
+    link.click()
+    URL.revokeObjectURL(link.href)  // 释放URl
+    document.body.removeChild(link)
+  } else { // IE10+ 下载
+    navigator.msSaveBlob(blob, fileName)
+  }
+}
+
