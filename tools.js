@@ -58,3 +58,18 @@ export function exportFile = (res, fileName) => {
   }
 }
 
+/**
+ * 获取地址栏URL参数值
+ * @field { 获取的字段名字 } String
+ */
+export function getParams(field) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] === field){return pair[1];}
+    }
+    return('');
+}
+
+
