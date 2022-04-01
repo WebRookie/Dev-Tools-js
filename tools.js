@@ -69,7 +69,23 @@ export function getParams(field) {
         var pair = vars[i].split("=");
         if(pair[0] === field){return pair[1];}
     }
-    return('');
+    return null;
 }
 
 
+/**
+ * 
+ * @param {需要防抖的方法} callFunction 
+ * @param {延时时间} delay 
+ * @returns null 没有返回值
+ */
+
+export function debounce(callFunction, delay) {
+  let timer = null;
+  return () => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      callFunction()
+    }, delay)
+  }
+}
